@@ -7,7 +7,7 @@
         <main id="content">
             <h2>회원가입</h2>
 
-            <form name="joinfrm" id="joinfrm" method="post" onsubmit="return joinform()">
+            <form name="joinfrm" id="joinfrm" method="post" >
 
                 <div>
                 <label for="userid"> 아이디 </label>
@@ -49,8 +49,10 @@
 
     <th:block layout:fragment="script">
         <script>
-            function joinform() {
-                let joinfrm = document.forms['joinfrm'];
+            const joinfrm =document.querySelector('#joinfrm');
+
+            joinfrm.addEventListener("submit", (e)=>{
+                e.preventDefault(); // submit 버튼 기능 중지
 
                 if(joinfrm.userid.value === ''){
                     alert('아이디를 입력하세요');
@@ -70,8 +72,9 @@
                 }
 
 
-                return true;    // 회원정보를 정상적으로 작성했다면
-            }
+               joinfrm.submit();    // 회원정보를 정상적으로 작성했다면
+
+            });
 
 
         </script>
