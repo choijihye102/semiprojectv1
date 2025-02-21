@@ -1,7 +1,9 @@
 package com.example.jennie.semiprojectv1.domain;
 
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data // setter, getter, toString 자동 생성
 public class MemberDTO {
 
