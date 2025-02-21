@@ -2,16 +2,22 @@ package com.example.jennie.semiprojectv1.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
 
-    @GetMapping("/join")
+    @GetMapping ("/join")
     public String join() {
 
         return "views/member/join";
+    }
+    @PostMapping ("/join")
+    public String joinok() {
+        return "redirect:views/member/join";
     }
 
     @GetMapping("/login")
