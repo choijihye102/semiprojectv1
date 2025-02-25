@@ -6,6 +6,7 @@ import com.example.jennie.semiprojectv1.repository.MemberRepository;
 import com.example.jennie.semiprojectv1.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,9 +89,14 @@ public class MemberController {
     }
 
     @GetMapping("/myinfo")
-    public String myinfo() {
+    public String myinfo(HttpSession session) {
+        String returnUrl = "views/member/login";
 
-        return "views/member/myinfo";
+        // 세션변수가 생성되어 있다면 myinfo로 이동가능
+        if(session.getAttribute("loginUser") != null) {
+            returnUrl = "views/member/myinfo";
+        }
+        return  returnUrl;
     }
 
 }
