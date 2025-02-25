@@ -133,7 +133,7 @@ const submitLoginfrm = async (frm) => {
     frm.passwd.value = await  hashPassword(frm.passwd.value);
     const formData = new FormData(frm);
 
-    fetch('/member/loginfrm', {
+    fetch('/member/login', {
         method: 'post',
         body: formData
     }).then(async  response=> {

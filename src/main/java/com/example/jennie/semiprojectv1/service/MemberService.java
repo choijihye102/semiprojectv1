@@ -1,5 +1,6 @@
 package com.example.jennie.semiprojectv1.service;
 
+import com.example.jennie.semiprojectv1.domain.Member;
 import com.example.jennie.semiprojectv1.domain.MemberDTO;
 import com.example.jennie.semiprojectv1.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService{
+public class MemberService {
 
         private final MemberRepository memberMapper;
 
-        public boolean newMember(MemberDTO member){
+        public boolean newMember(MemberDTO member) {
 
                 // 아이디 중복 체크
                 if (memberMapper.countByUserid(member.getUserid()) > 0) {
@@ -28,6 +29,15 @@ public class MemberService{
 
         }
 
+        public Member loginMember(MemberDTO member) {
+                Member findMember = memberMapper.findByUserid(member.getUserid());
+
+                if (findMember == null || !findMember.getPasswd().equals(member.getPasswd())) {
+                        throw new IllegalStateException("Service에서 호출 => 아이디나 비번이 일치하지 않습ㄴ디ㅏ. ");
+                }
+
+                return findMember;
+        }
 }
 
 

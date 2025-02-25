@@ -10,7 +10,6 @@ public class MemberDTO {
 
     private String userid;
     private String passwd;
-    private String repasswd;  // input으로 받은거 처리해야해서 db와 완전 같지 않음
     private String name;
     private String email;
 
