@@ -5,11 +5,14 @@ import com.example.jennie.semiprojectv1.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
@@ -21,14 +24,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class BoardServiceTest {
 
     private final BoardService boardService;
+    @Value(  "${board.page-size}") private  int pageSize;
 
     @Test
     @DisplayName("BoardService readall test")
     public void readAllTest(){
         // Given
+
         int cpg = 1;  //  현재  페이지가 1일때 게시글을 읽어옴
         // when
-        List<BoardDTO> results =  boardService.readBoard(cpg);
+        List<BoardDTO> results =  boardService.readBoard(cpg, pageSize);
 
         // then
         assertNotNull(results);

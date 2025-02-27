@@ -4,6 +4,7 @@ import com.example.jennie.semiprojectv1.domain.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BoardRepository {
@@ -13,5 +14,7 @@ public interface BoardRepository {
 
     @Select("select ceil(count(bno) / #{pageSize}) cntpg from boards")
     int countPagesBoard(int pageSize);
+
+    List<BoardDTO> selelctFindBoard(Map<String, Object> params);
 
 }
