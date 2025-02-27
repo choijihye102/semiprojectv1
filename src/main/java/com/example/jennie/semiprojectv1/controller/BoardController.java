@@ -25,6 +25,8 @@ public class BoardController {
 
         m.addAttribute("bds", boardService.readBoard(cpg));
         m.addAttribute("cpg", cpg);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+        m.addAttribute("stblk", ((cpg - 1) / 10) * 10+1);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+
 
         return "views/board/list";
     }
