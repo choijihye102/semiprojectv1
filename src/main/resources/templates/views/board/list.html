@@ -61,12 +61,13 @@
                                     </li>
 
                                     <th:block th:each="i : ${#numbers.sequence(stblk, stblk + 9)}">   <!-- [1,2,3,4,5]같은 배열 만들어서 가져오는것 -->
-                                   <!-- i 와 cpg가 일치하지 않으면 현재 페이지 아님, 평범하게 출력 -->
+                                        <!-- 출력하는 페이지가 총페이지 수 이하일때 출력 -->
+                                        <th:block th:if="${i le cntpg}">
+                                        <!-- i 와 cpg가 일치하지 않으면 현재 페이지 아님, 평범하게 출력 -->
                                     <li th:class="${(i ne cpg) ? 'page-item' : 'page-item active' }">
                                         <a th:href="|/board/list?cpg=${i}|"
                                            class="page-link"   th:text="${i}">1 </a>  </li><!--값이 있어도 ${}값있으면 치환됨.  -->
-
-
+                                        </th:block>
                                     </th:block>
 
                                     <li class="page-item">
