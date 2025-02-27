@@ -56,25 +56,17 @@
                             <td colspan="6">
                                 <ul class="pagination">
                                     <li class="page-item">
-                                        <a href="#" class="page-link">이전 </a>
+                                        <a th:href="|/board/list?cpg=${cpg - 1}|" class="page-link">이전 </a>
                                     </li>
+
+                                    <th:block th:each="i : ${#numbers.sequence(1,10)}">   <!-- [1,2,3,4,5]같은 배열 만들어서 가져오는것 -->
                                     <li class="page-item">
-                                        <a href="/board/list?cpg=1" class="page-link">1 </a>
+                                        <a th:href="|/board/list?cpg=${i}|" class="page-link" th:text="${i}">1 </a> <!--값이 있어도 ${}값있으면 치환됨.  -->
                                     </li>
+                                    </th:block>
+
                                     <li class="page-item">
-                                        <a href="/board/list?cpg=2" class="page-link">2 </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="/board/list?cpg=3" class="page-link active">3 </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="/board/list?cpg=4" class="page-link">4 </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="/board/list?cpg=4" class="page-link"> </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">다음 </a>
+                                        <a th:href="|/board/list?cpg=${cpg + 1}|" class="page-link">다음 </a>
                                     </li>
 
                                 </ul>
