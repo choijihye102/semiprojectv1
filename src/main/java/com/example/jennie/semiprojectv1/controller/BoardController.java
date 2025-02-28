@@ -47,4 +47,12 @@ public class BoardController {
         return "views/board/list";
     }
 
+    @GetMapping("/view")
+    public String find(Model m, String bno) {
+
+        m.addAttribute("bd", boardService.readOndBoard(bno));
+
+        return "views/board/view";
+    }
+
 }

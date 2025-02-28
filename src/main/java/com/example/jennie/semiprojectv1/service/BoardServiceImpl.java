@@ -1,5 +1,6 @@
 package com.example.jennie.semiprojectv1.service;
 
+import com.example.jennie.semiprojectv1.domain.Board;
 import com.example.jennie.semiprojectv1.domain.BoardDTO;
 import com.example.jennie.semiprojectv1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,11 @@ public class BoardServiceImpl implements BoardService {
         params.put("findkey",  findkey);
 
         return boardMapper.countFindBoard(params);
+    }
+
+    @Override
+    public Board readOndBoard(String bno) {
+        return boardMapper.selectOneBoard(bno);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.jennie.semiprojectv1.repository;
 
+import com.example.jennie.semiprojectv1.domain.Board;
 import com.example.jennie.semiprojectv1.domain.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -18,4 +19,7 @@ public interface BoardRepository {
     List<BoardDTO> selelctFindBoard(Map<String, Object> params);
 
     int countFindBoard(Map<String, Object> params);
+
+    @Select("select * from boards where bno = #{bno}")
+    Board selectOneBoard(String bno );
 }

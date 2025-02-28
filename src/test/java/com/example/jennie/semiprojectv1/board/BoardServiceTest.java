@@ -1,5 +1,6 @@
 package com.example.jennie.semiprojectv1.board;
 
+import com.example.jennie.semiprojectv1.domain.Board;
 import com.example.jennie.semiprojectv1.domain.BoardDTO;
 import com.example.jennie.semiprojectv1.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +73,20 @@ public class BoardServiceTest {
 
         // then
         assertThat(results).isGreaterThan(0); // 결과 갯수 확인
+    }
+
+    @Test
+    @DisplayName("BoardService readOne test")
+    public void readOndTest(){
+        // Given
+        String bno = "3000";
+
+        // when
+        Board result =  boardService.readOndBoard(bno);
+
+        // then
+        assertThat(result).isNotNull(); // 결과 갯수 확인
+        assertThat(result.getUserid()).isNotNull(); // 결과 갯수 확인
     }
 
 }
