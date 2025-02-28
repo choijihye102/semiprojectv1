@@ -17,4 +17,5 @@ public interface BoardRepository {
 
     List<BoardDTO> selelctFindBoard(Map<String, Object> params);
 
+    int countFindBoard(Map<String, Object> params);
 }

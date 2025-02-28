@@ -1,101 +1,101 @@
 <!doctype html>
-<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layouts/layout}">
+      layout:decorate="~{layouts/layout}">
 
-    <th:block layout:fragment="content">
-        <main id="content">
-            <h2>게시판</h2>
-            <table class="table table-striped">
-                <colgroup>
-                    <col style="width:7%">
-                    <col style="" class="truncate">
-                    <col style="width:12%">
-                    <col style="width:12%">
-                    <col style="width:7%" class="justify-content-center">
-                    <col style="width:7%">
-                </colgroup>
+<th:block layout:fragment="content">
+    <main id="content">
+        <h2>게시판</h2>
+        <table class="table table-striped">
+            <colgroup>
+                <col style="width:7%">
+                <col style="" class="truncate">
+                <col style="width:12%">
+                <col style="width:12%">
+                <col style="width:7%">
+                <col style="width:7%">
+            </colgroup>
 
-                <thead>
-                <tr>
-                    <td colspan="3" class="text-start">
-                        <div class="d-flex align-items-center gap-3">
-                            <select class="form-select" style="width: 120px" id="findtype" name="findtype">
-                                <option selected>제목</option><option value="userid">작성자</option><option value="contents">내용</option></select>
-                            <input class="form-control" style="width: 250px"  id="findkey" name="findkey">
-                            <button class="btn btn-success" id="findbtn" ><i class="fa-solid fa-magnifying-glass"></i> 검색</button>
-                        </div>
-                    </td>
-                    <td colspan="3"  class="text-end">
-                        <button type="button" class="btn btn-primary"><i class="fas fa-pen"></i> 글쓰기</button>
-                    </td>
-                </tr>
-                <tr class="table-light">
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>
-                    <th>추천</th>
-                </tr>
-                </thead>
+            <thead>
+            <tr>
+                <td colspan="3" class="text-start">
+                    <div class="d-flex align-items-center gap-3">
+                        <select class="form-select" style="width: 120px" id="findtype" name="findtype">
+                            <option  value="title" selected>제목</option>
+                            <option value="userid">작성자</option>
+                            <option value="contents">내용</option></select>
+                        <input class="form-control" style="width: 250px" id="findkey" name="findkey">
+                        <button class="btn btn-success" id="findbtn"><i class="fa-solid fa-magnifying-glass"></i> 검색</button>
+                    </div>
+                </td>
+                <td colspan="3"  class="text-end">
+                    <button type="button" class="btn btn-primary"><i class="fas fa-pen"></i> 글쓰기</button>
+                </td>
+            </tr>
+            <tr class="table-light">
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>추천</th>
+                <th>조회</th>
+            </tr>
+            </thead>
 
-                <tbody>
-                    <tr th:each="bd : ${bds}">
-                        <td th:text="${bd.bno}"></td>
-                        <td th:text="${bd.title}"></td>
-                        <td th:text="${bd.userid}"></td>
-                        <td th:text="${#strings.substring(bd.regdate,0,10)}"></td>
-                        <td th:text="${bd.views}"></td>
-                        <td th:text="${bd.thumbs}"></td>
-                    </tr>
-                </tbody>
+            <tbody>
+            <tr th:each="bd : ${bds}">
+                <td th:text="${bd.bno}"></td>
+                <td th:text="${bd.title}"></td>
+                <td th:text="${bd.userid}"></td>
+                <td th:text="${#strings.substring(bd.regdate,0,10)}"></td>
+                <td th:text="${bd.thumbs}"></td>
+                <td th:text="${bd.views}"></td>
+            </tr>
+            </tbody>
 
-                <tfoot>
-                    <tr>
-                            <td colspan="6">
-                                <ul class="pagination">
-                                    <!--  현재 페이지가 1/10보다 '이전' 링크를 표시 -->
-                                    <li class="page-item" th:if="${cpg  gt 10}">
-                                        <a th:href="|/board/list?cpg=${cpg - 1}|" class="page-link">이전 </a>
-                                    </li>
+            <tfoot>
+            <tr><td colspan="6">
+                <ul class="pagination">
+                    <!-- 현재 페이지가 1/10보다 '이전' 링크를 표시 -->
+                    <li class="page-item" th:if="${cpg gt 10}">
+                        <a th:href="|/board/list?cpg=${cpg - 1}|" class="page-link">이전</a></li>
 
-                                    <th:block th:each="i : ${#numbers.sequence(stblk, stblk + 9)}">   <!-- [1,2,3,4,5]같은 배열 만들어서 가져오는것 -->
-                                        <!-- 출력하는 페이지가 총페이지 수 이하일때 출력 -->
-                                        <th:block th:if="${i le cntpg}">
-                                        <!-- i 와 cpg가 일치하지 않으면 현재 페이지 아님, 평범하게 출력 -->
-                                    <li th:class="${(i ne cpg) ? 'page-item' : 'page-item active' }">
-                                        <a th:href="|/board/list?cpg=${i}|"
-                                           class="page-link"   th:text="${i}">1 </a>  </li><!--값이 있어도 ${}값있으면 치환됨.  -->
-                                        </th:block>
-                                    </th:block>
+                    <th:block th:each="i : ${#numbers.sequence(stblk, stblk + 9)}">
+                        <!-- 출력하는 페이지가 총페이지 수 이하일때 출력 -->
+                        <th:block th:if="${i le cntpg}">
+                            <!-- i 와 cpg가 일치하지 않으면 평범하게 출력 -->
+                            <li th:class="${(i ne cpg) ? 'page-item' : 'page-item active'}">
+                                <a th:href="|/board/list?cpg=${i}|"
+                                   class="page-link" th:text="${i}">1</a></li>
+                        </th:block>
+                    </th:block>
 
-                                    <li class="page-item">
-                                        <a th:href="|/board/list?cpg=${cpg + 1}|" class="page-link">다음 </a>
-                                    </li>
+                    <li class="page-item">
+                        <a th:href="|/board/list?cpg=${cpg + 1}|" class="page-link">다음</a></li>
+                </ul>
+            </td></tr>
+            </tfoot>
+        </table>
+    </main>
+</th:block>
 
-                                </ul>
-                            </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </main>
-    </th:block>
-    <th:block layout:fragment="script">
-        <script src="/js/board.js"></script>
-        <script>
-            let findbtn = document.querySelector("#findbtn");
-            let findtype = document.querySelector("#findtype");
-            let findkey = document.querySelector("#findkey");
+<th:block layout:fragment="script">
+    <script src="/js/board.js"></script>
+    <script>
+        let findbtn = document.querySelector("#findbtn");
+        let findtype = document.querySelector("#findtype");
+        let findkey = document.querySelector("#findkey");
 
-            findbtn.addEventListener('click',(e) => {
-                if (findkey.value == '') {
-                    alert('검색어를 입력하시오!!');
-                } else {
-                    let params = `findtype=${findtype.value}&findkey=${findkey.value}`;
-                    location.href=`/board/find?${params}`;
-                }
-            });
-        </script>
-    </th:block>
+        findbtn.addEventListener('click', (e) => {
+            if (findkey.value === '') {
+                alert('검색어를 입력하세요!!');
+            } else {
+                let params = `findtype=${findtype.value}&findkey=${findkey.value}`;
+                location.href = `/board/find?${params}`;
+            }
+        });
+    </script>
+</th:block>
+
 </html>

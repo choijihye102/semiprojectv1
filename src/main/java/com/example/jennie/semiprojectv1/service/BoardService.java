@@ -9,4 +9,8 @@ public interface BoardService {
 
     int countBoard(int pageSize );
 
+    List<BoardDTO> findBoard(int cpg, String findtype, String findkey);
+
+    int countfindBoard( String findtype, String findkey);
+
 }

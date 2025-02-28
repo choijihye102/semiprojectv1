@@ -61,6 +61,7 @@ public class MemberController {
 
         return "views/member/login";
     }
+
     @PostMapping ("/login")
     public ResponseEntity<?>  loginok(MemberDTO member , HttpSession session ) {
         // 로그인 처리시 기타오류 발생에 대한 응답코드

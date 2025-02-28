@@ -36,10 +36,13 @@ public class BoardController {
     }
 
     @GetMapping("/find")
-    public String find(Model m, String findtype, String findKey,
+    public String find(Model m, String findtype, String findkey,
                        @RequestParam(defaultValue = "1") int cpg) {
 
-
+        m.addAttribute("bds", boardService.findBoard(cpg, findtype, findkey));
+        m.addAttribute("cpg", cpg);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+        m.addAttribute("stblk", ((cpg - 1) / 10) * 10+1);
+        m.addAttribute("cntpg", boardService.countfindBoard(findtype,findkey));  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
 
         return "views/board/list";
     }

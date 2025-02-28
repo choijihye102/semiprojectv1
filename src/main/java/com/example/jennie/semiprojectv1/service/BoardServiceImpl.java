@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +29,27 @@ public class BoardServiceImpl implements BoardService {
     public int countBoard(int pageSize ) {
 
         return boardMapper.countPagesBoard(pageSize);
+    }
+
+    @Override
+    public List<BoardDTO> findBoard(int cpg, String findtype, String findkey) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("stnum", (cpg-1) * pageSize);
+        params.put("pageSize",  pageSize);
+        params.put("findtype",  findtype);
+        params.put("findkey",  findkey);
+
+        return boardMapper.selelctFindBoard(params);
+    }
+
+    @Override
+    public int countfindBoard(String findtype, String findkey) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageSize",  pageSize);
+        params.put("findtype",  findtype);
+        params.put("findkey",  findkey);
+
+        return boardMapper.countFindBoard(params);
     }
 
 }
