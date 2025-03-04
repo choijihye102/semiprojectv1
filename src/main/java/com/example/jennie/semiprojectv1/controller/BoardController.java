@@ -25,19 +25,20 @@ public class BoardController {
 
     private final BoardService boardService;
     private final GoogleRecaptchaService googleRecaptchaService;
-    @Value(  "${board.page-size}") private  int pageSize;
+    @Value("${board.page-size}")
+    private int pageSize;
 
     @GetMapping("/list")
     public String list(Model m, @RequestParam(defaultValue = "1") int cpg, HttpServletResponse response) {
         //클라이언트 캐시 제어 : - view +1 작업 연장선
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Expires","0");
+        response.setHeader("Expires", "0");
         //cpg 매개변수가 전달되지 않을 경우 기본값인 1이 전달됨
         log.info("board/list 호출 !! ");
 
         m.addAttribute("bds", boardService.readBoard(cpg, pageSize));
         m.addAttribute("cpg", cpg);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
-        m.addAttribute("stblk", ((cpg - 1) / 10) * 10+1);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+        m.addAttribute("stblk", ((cpg - 1) / 10) * 10 + 1);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
         m.addAttribute("cntpg", boardService.countBoard(pageSize));
 
 
@@ -50,8 +51,8 @@ public class BoardController {
 
         m.addAttribute("bds", boardService.findBoard(cpg, findtype, findkey));
         m.addAttribute("cpg", cpg);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
-        m.addAttribute("stblk", ((cpg - 1) / 10) * 10+1);
-        m.addAttribute("cntpg", boardService.countfindBoard(findtype,findkey));  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+        m.addAttribute("stblk", ((cpg - 1) / 10) * 10 + 1);
+        m.addAttribute("cntpg", boardService.countfindBoard(findtype, findkey));  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
 
         return "views/board/list";
     }
@@ -64,6 +65,7 @@ public class BoardController {
 
         return "views/board/view";
     }
+
     @GetMapping("/write")
     public String write() {
         return "views/board/write";
@@ -73,12 +75,16 @@ public class BoardController {
     public ResponseEntity<?> writeok(NewBoardDTO newBoardDTO,
                                      @RequestParam("g-recaptcha-response") String gRecaptchaResponse) {
         ResponseEntity<?> response = ResponseEntity.internalServerError().build();
-        log.info("submit된 게시글 정보 : {}" , newBoardDTO);
+        log.info("submit된 게시글 정보 : {}", newBoardDTO);
         log.info("submit된 recaptcha 응답코드 : {}", gRecaptchaResponse);
 
         try {
             if (!googleRecaptchaService.verifyRecaptcha(gRecaptchaResponse)) {
                 throw new IllegalStateException("자동가입방지 코드 오류!!");
+            }
+
+            if (boardService.newBoard(newBoardDTO)) {
+                response = ResponseEntity.ok().build();
             }
         } catch (IllegalStateException ex) {
             response = ResponseEntity.badRequest().body(ex.getMessage());
@@ -86,3 +92,4 @@ public class BoardController {
 
         return response;
     }
+}
