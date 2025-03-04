@@ -54,8 +54,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board readOndBoard(String bno) {
+    public Board readOndBoard(int bno) {
         return boardMapper.selectOneBoard(bno);
+    }
+
+    @Override
+    public void readOneView(int bno) {
+        boardMapper.updateViewOne(bno);
     }
 
 }
