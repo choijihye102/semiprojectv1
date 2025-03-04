@@ -3,7 +3,6 @@ package com.example.jennie.semiprojectv1.controller;
 import com.example.jennie.semiprojectv1.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +28,7 @@ public class BoardController {
         m.addAttribute("bds", boardService.readBoard(cpg, pageSize));
         m.addAttribute("cpg", cpg);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
         m.addAttribute("stblk", ((cpg - 1) / 10) * 10+1);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
-        m.addAttribute("cntpg", boardService.countBoard(pageSize));  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+        m.addAttribute("cntpg", boardService.countBoard(pageSize));
 
 
         return "views/board/list";

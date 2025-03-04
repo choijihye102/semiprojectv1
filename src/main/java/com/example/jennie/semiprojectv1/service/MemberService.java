@@ -30,13 +30,15 @@ public class MemberService {
         }
 
         public Member loginMember(MemberDTO member) {
+
                 Member findMember = memberMapper.findByUserid(member.getUserid());
 
                 if (findMember == null || !findMember.getPasswd().equals(member.getPasswd())) {
-                        throw new IllegalStateException("Service에서 호출 => 아이디나 비번이 일치하지 않습ㄴ디ㅏ. ");
+                        throw new IllegalStateException ("Service에서 호출 => 아이디나 비번이 일치하지 않습니다. ");
                 }
 
                 return findMember;
+
         }
 }
 
