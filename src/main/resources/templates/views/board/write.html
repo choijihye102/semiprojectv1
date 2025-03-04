@@ -5,7 +5,6 @@
 
 <head><!-- layout.html의 head - styles 태그에 자동 삽입 -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         .error-message {
             color: #dc3545;
@@ -47,7 +46,7 @@
             </div>
 
             <div class="my-2 d-flex justify-content-center">
-                <div class="g-recaptcha" data-sitekey="6Le1xOgqAAAAAME_blkmedYCcQZX6fvyinSTnBq8"></div>
+                <div class="g-recaptcha" id="recaptcha" data-sitekey="6LcpxugqAAAAAHLldj4mkSoRHBHPMOkDB28UNDV4"></div>
             </div>
 
             <div class="my-2 d-flex justify-content-between">
@@ -57,32 +56,22 @@
                     <i class="fa-sharp fa-solid fa-eraser"></i> 다시입력</button>
             </div>
         </form>
-        <!-- tinymce html editor -->
-        <div>
-            <textarea id="mytextarea">Hello, World!</textarea>
-        </div>
     </main>
 </th:block>
 
 <th:block layout:fragment="script">
-    <script src="/js/member.js"></script>
+    <script src="/js/board.js"></script>
     <script>
-        const joinfrm = document.querySelector('#joinfrm');
+        const boardfrm = document.querySelector('#boardfrm');
 
-        joinfrm.addEventListener("submit", (e) => {
+        boardfrm.addEventListener("submit", (e) => {
             e.preventDefault(); // submit 버튼 기능 중지
 
             clearErrorMessages();  // 에러메세지 초기화
 
             // 입력 요소 유효성 검사
-            let isValid = validInputs(joinfrm);
-
-            if (isValid) submitJoinfrm(joinfrm);
-        });
-    </script>
-    <script>
-        tinymce.init({
-            selector: '#mytextarea'
+            let isValid = validBoard(boardfrm);
+            if (isValid) submitBoardfrm(boardfrm);
         });
     </script>
 </th:block>
