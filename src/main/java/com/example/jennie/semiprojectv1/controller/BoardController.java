@@ -109,4 +109,14 @@ public class BoardController {
         return returnPage;
     }
 
+    @PostMapping("/cmmt")
+    public String cmmtok(NewReplyDTO newReplyDTO){
+        String returnPage =  "redirect:/board/list?bno=" + newReplyDTO.getPno();
+
+        if (boardService.newComment(newReplyDTO)){
+            returnPage = "redirect:/board/error?type=1";
+        }
+
+        return returnPage;
+    }
 }

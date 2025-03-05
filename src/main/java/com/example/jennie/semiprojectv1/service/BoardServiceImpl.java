@@ -3,10 +3,8 @@ package com.example.jennie.semiprojectv1.service;
 import com.example.jennie.semiprojectv1.domain.*;
 import com.example.jennie.semiprojectv1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +77,12 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<Reply> readReply(int pno) {
         return boardMapper.selectReply(pno);
+    }
+
+    @Override
+    public boolean newComment(NewReplyDTO newReplyDTO) {
+       int result =  boardMapper.insertComment(newReplyDTO);
+        return result > 0;
     }
 
 }
