@@ -23,6 +23,12 @@
 
         .rpybg { background: lime; padding: 5px; }
 
+        .reply-border { border-top: 1px solid greenyellow;
+            border-bottom:1px solid greenyellow }
+
+        .pushend { float: right }
+
+
         .pre { white-space: pre-wrap } /*본문글 줄바꿈 표시*/
     </style>
 </head>
@@ -66,6 +72,19 @@
             <div class="py-3">
                 <h3> <i class="fa fa-commenting"></i>나도 한마디</h3>
             </div>
+
+            <table class="table reply-border">
+                <tr th:each="rp : ${rps}">
+                    <td class="text-left" th:text="${rp.userid}">abc123</td>
+                    <td>
+                        <div class="cmtbg"><span th:text="${rp.regdate}">2025-03-04 23:41:27</span>
+                            <span class="pushend">
+                                        <a href="#" data-ref="117" data-bs-toggle="modal"
+                                           data-bs-target="#cmtModal">[추가]</a> [수정] [삭제]</span></div>
+                        <p class="py-1 pre" th:text="${rp.comments}"></p>
+                    </td>
+                </tr>
+            </table> <!-- 댓글/대댓글 목록 _ tr을 반복하며 댓글 목록 생성함. -->
 
             <div class="py-3">
                 <form class="card card-body bg-light" method="post"
