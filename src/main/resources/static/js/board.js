@@ -21,8 +21,6 @@ const validBoard = (form) => {
     let isValid = true;
 
     // 로그인 폼안의 모든 input 요소 수집
-    // :not(...) → 부정 선택자
-    // [readonly] → 속성 선택자
     const inputs = form.querySelectorAll('input:not([readonly]), textarea:not([readonly])');
     inputs.forEach((input, idx) => {
         if (!input.checkValidity()) {
