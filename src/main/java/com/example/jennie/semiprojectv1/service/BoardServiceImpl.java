@@ -3,6 +3,7 @@ package com.example.jennie.semiprojectv1.service;
 import com.example.jennie.semiprojectv1.domain.Board;
 import com.example.jennie.semiprojectv1.domain.BoardDTO;
 import com.example.jennie.semiprojectv1.domain.NewBoardDTO;
+import com.example.jennie.semiprojectv1.domain.NewReplyDTO;
 import com.example.jennie.semiprojectv1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -68,6 +69,14 @@ public class BoardServiceImpl implements BoardService {
     public boolean newBoard(NewBoardDTO newboardDTO) {
         int result = boardMapper.insertBoard(newboardDTO);
         return result > 0;
+    }
+
+    @Override
+    public boolean newReply(NewReplyDTO newReplyDTO) {
+
+        int result = boardMapper.insertReply(newReplyDTO);
+        return result > 0;
+
     }
 
 }
