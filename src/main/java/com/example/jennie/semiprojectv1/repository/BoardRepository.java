@@ -15,8 +15,11 @@ public interface BoardRepository {
     @Select("select bno, title, userid, regdate, thumbs, views  from boards order by bno desc limit #{stnum}, #{pageSize}")  //이러면, pageSize-1 범위까지 가져옴.
     List<BoardDTO> selectBoard(int stnum, int pageSize);
 
-    @Select("select ceil(count(bno) / #{pageSize}) cntpg from boards")
-    int countPagesBoard(int pageSize);
+    //@Select("select ceil(count(bno) / #{pageSize}) cntpg from boards")
+    //int countPagesBoard(int pageSize);
+
+    @Select("select count(bno) cntbd from boards")
+    int countBoard();
 
     List<BoardDTO> selelctFindBoard(Map<String, Object> params);
 

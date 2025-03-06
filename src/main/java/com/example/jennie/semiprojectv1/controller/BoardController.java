@@ -38,10 +38,14 @@ public class BoardController {
         //cpg 매개변수가 전달되지 않을 경우 기본값인 1이 전달됨
         log.info("board/list 호출 !! ");
 
-        m.addAttribute("bds", boardService.readBoard(cpg, pageSize));
-        m.addAttribute("cpg", cpg);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
-        m.addAttribute("stblk", ((cpg - 1) / 10) * 10 + 1);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
-        m.addAttribute("cntpg", boardService.countBoard(pageSize));
+//new
+        m.addAttribute("bdsdto", boardService.readBoard(cpg));
+
+ // old
+//        m.addAttribute("bds", boardService.readBoard(cpg, pageSize));
+//        m.addAttribute("cpg", cpg);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+//        m.addAttribute("stblk", ((cpg - 1) / 10) * 10 + 1);  //매개변수로 받은 cpg를 '이전' 태그에 cpg-1 연산을 위해 다시 모델에 담아 보냄..
+//        m.addAttribute("cntpg", boardService.countBoard(pageSize));
 
 
         return "views/board/list";

@@ -5,6 +5,9 @@ import com.example.jennie.semiprojectv1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,18 +19,21 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardMapper;
     @Value(  "${board.page-size}") private  int pageSize;
 
+    @Transactional
     @Override
-    public List<BoardDTO> readBoard(int cpg, int pageSize) {
+    public BoardListDTO readBoard(int cpg) {
         int stnum = (cpg-1) * pageSize;
+        int totalItems = boardMapper.countBoard();
+        List<BoardDTO> boards = boardMapper.selectBoard(stnum, pageSize);
 
-        return boardMapper.selectBoard(stnum, pageSize);
+        return new BoardListDTO(cpg, totalItems, pageSize, boards );
     }
 
-    @Override
-    public int countBoard(int pageSize ) {
+   // @Override
+  //  public int countBoard(int pageSize ) {
 
-        return boardMapper.countPagesBoard(pageSize);
-    }
+    //    return boardMapper.countPagesBoard(pageSize);
+ //   }
 
     @Override
     public List<BoardDTO> findBoard(int cpg, String findtype, String findkey) {
