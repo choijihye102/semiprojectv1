@@ -11,10 +11,13 @@ public class Gallery {
     private int gno;
     private String title;
     private String userid;
-    private LocalDateTime regdate;
     private  String thumbs;
     private  String views;
-    private  String contents;
     private  String simgname;
+    private LocalDateTime regdate;
+
+
+ //   private  String contents;
+
 
 }
