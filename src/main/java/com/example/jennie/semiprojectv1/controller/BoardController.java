@@ -66,9 +66,13 @@ public class BoardController {
     @GetMapping("/view")
     public String find(Model m, int bno) {
 
-        boardService.readOneView(bno);
-        m.addAttribute("bd", boardService.readOndBoard(bno));
-        m.addAttribute("rps", boardService.readReply(bno));
+ // new
+        m.addAttribute("bdrps", boardService.readOndBoardReply(bno));
+
+// old -> 아래코드 서비스impl로 옮겨감.
+//        boardService.readOneView(bno);
+//        m.addAttribute("bd", boardService.readOndBoard(bno));
+//        m.addAttribute("rps", boardService.readReply(bno));
 
         return "views/board/view";
     }

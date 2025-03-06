@@ -29,7 +29,19 @@ public class BoardServiceImpl implements BoardService {
         return new BoardListDTO(cpg, totalItems, pageSize, boards );
     }
 
-   // @Override
+    @Transactional
+    @Override
+    public BoardReplyDTO readOndBoardReply(int bno) {
+
+        // 아래 세줄 중 오류나면 자동 롤백 트랜젝션 설정됨 -> @Transactional
+        boardMapper.updateViewOne(bno);   // <- boardService.readOneView(bno);
+        Board bd = boardMapper.selectOneBoard(bno);  // <- m.addAttribute("bd", boardService.readOndBoard(bno));
+        List<Reply> rps = boardMapper.selectReply(bno); // <- m.addAttribute("rps", boardService.readReply(bno));
+
+        return new BoardReplyDTO(bd, rps);
+    }
+
+    // @Override
   //  public int countBoard(int pageSize ) {
 
     //    return boardMapper.countPagesBoard(pageSize);
@@ -56,15 +68,15 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.countFindBoard(params);
     }
 
-    @Override
-    public Board readOndBoard(int bno) {
-        return boardMapper.selectOneBoard(bno);
-    }
+//    @Override
+//    public Board readOndBoard(int bno) {
+//        return boardMapper.selectOneBoard(bno);
+//    }
 
-    @Override
-    public void readOneView(int bno) {
-        boardMapper.updateViewOne(bno);
-    }
+//    @Override
+//    public void readOneView(int bno) {
+//        boardMapper.updateViewOne(bno);
+//    }
 
     @Override
     public boolean newBoard(NewBoardDTO newboardDTO) {
@@ -80,10 +92,10 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
-    @Override
-    public List<Reply> readReply(int pno) {
-        return boardMapper.selectReply(pno);
-    }
+//    @Override
+//    public List<Reply> readReply(int pno) {
+//        return boardMapper.selectReply(pno);
+//    }
 
     @Override
     public boolean newComment(NewReplyDTO newReplyDTO) {
