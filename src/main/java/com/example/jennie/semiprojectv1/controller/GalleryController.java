@@ -1,19 +1,25 @@
 package com.example.jennie.semiprojectv1.controller;
 
+import com.example.jennie.semiprojectv1.domain.NewGalleryDTO;
 import com.example.jennie.semiprojectv1.service.GalleryService;
+import com.example.jennie.semiprojectv1.service.GoogleRecaptchaService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
+@Slf4j
 @Controller
 @RequestMapping("/gallery")
 @RequiredArgsConstructor
 public class GalleryController {
     private final GalleryService galleryService;
+    private final GoogleRecaptchaService googleRecaptchaService;
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -48,5 +54,27 @@ public class GalleryController {
     public String write(Model m) {
         m.addAttribute("sitekey", System.getenv("recaptcha.sitekey"));
         return "views/gallery/write";
+    }
+
+    @PostMapping("/write")
+    public ResponseEntity<?> writeok(NewGalleryDTO gal, List<MultipartFile>  ginames,
+                                     @RequestParam("g-recaptcha-response") String gRecaptchaResponse) {
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
+        log.info("submit된 갤러리 정보 1 : {}", gal);
+        log.info("submit된 갤러리 정보 2: {}", ginames);
+
+        try {
+            if (!googleRecaptchaService.verifyRecaptcha(gRecaptchaResponse)) {
+                throw new IllegalStateException("자동가입방지 코드 오류!!");
+            }
+
+            if (galleryService.newGalleryImage(gal, ginames)) {
+                response = ResponseEntity.ok().build();
+            }
+        } catch (IllegalStateException ex) {
+            response = ResponseEntity.badRequest().body(ex.getMessage());
+        }
+
+        return response;
     }
 }
