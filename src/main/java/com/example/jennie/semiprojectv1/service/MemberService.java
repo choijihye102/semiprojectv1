@@ -47,11 +47,15 @@ public class MemberService {
 //
 //        }
 
-        public User findByUserid(UserDetails userDetails) {
+        public UserDetails findByUserid(UserDetails userDetails) {
                 User findUser = userRepository.findByUserid(userDetails.getUsername())
                         .orElseThrow(()-> new UsernameNotFoundException("사용자가 존재하지 않습니다."));
 
-                return findUser;
+                return org.springframework.security.core.userdetails.User.builder()
+                        .username(findUser.getUserid())
+                        .password(findUser.getPasswd())
+                        .roles("USER")
+                        .build();
 
 
         }
