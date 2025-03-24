@@ -29,6 +29,7 @@ const validBoard = (form) => {
         }
     });
     const ggrecaptcha = grecaptcha.getResponse();
+
     if (ggrecaptcha === "") {
         const recaptcha = document.querySelector('#recaptcha');
         displayErrorMessages(recaptcha, boardMessages[2]);

@@ -84,7 +84,7 @@ public class BoardController {
         if(session.getAttribute("loginUser") != null) {
             // 시스템 환경변수에 저장된 사이트키 불러옴.
             m.addAttribute("sitekey",System.getenv("recaptcha.sitekey"));
-            returnPage = "redirect:/board/write";
+            returnPage = "views/board/write";
         }
 
 

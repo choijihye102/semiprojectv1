@@ -42,6 +42,15 @@ public class GalleryController {
     RESTful API 설계에서 자원의 식별자로 사용하기에 적합*/
 
     // 호출 url 의미 : /gallery/view/글번호
+    @GetMapping("/movie")
+    public String view() {
+
+
+        return "views/gallery/movie";
+    }
+
+
+    // 호출 url 의미 : /gallery/view/글번호
     @GetMapping("/view/{gno}")
     public String view(Model m, @PathVariable int gno) {
 

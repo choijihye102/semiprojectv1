@@ -57,7 +57,7 @@ public class GoogleRecaptchaService {
         } catch (RestClientException e) {
             log.error("API 호출 실패: {}", e.getMessage(), e);
             throw new RuntimeException("reCAPTCHA 데이터를 가져오는 중 오류가 발생했습니다", e);
-        }  catch (JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             log.error("JSON 파싱 오류: {}", e.getMessage(), e);
             throw new RuntimeException("유효하지 않은 응답 형식입니다", e);
         }
