@@ -2,15 +2,12 @@ package com.example.jennie.semiprojectv1.controller;
 
 import com.example.jennie.semiprojectv1.domain.Member;
 import com.example.jennie.semiprojectv1.domain.MemberDTO;
-import com.example.jennie.semiprojectv1.repository.MemberRepository;
 import com.example.jennie.semiprojectv1.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,7 +17,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberController_beforeSecurity {
 
     private final MemberService memberService;
 

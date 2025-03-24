@@ -1,25 +1,14 @@
 package com.example.jennie.semiprojectv1.member;
 
-import com.example.jennie.semiprojectv1.controller.MemberController;
-import com.example.jennie.semiprojectv1.domain.Member;
-import com.example.jennie.semiprojectv1.domain.MemberDTO;
 import com.example.jennie.semiprojectv1.repository.MemberRepository;
-import com.example.jennie.semiprojectv1.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.spring5.expression.Mvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
